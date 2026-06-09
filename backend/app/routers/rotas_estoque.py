@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from services.estoquista import (
+from app.services.estoquista import (
     consultar_estoque,
     registrar_entrada,
     registrar_saida

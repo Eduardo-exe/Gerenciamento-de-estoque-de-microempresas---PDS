@@ -1,5 +1,7 @@
-from fastapi import APIRouter
-
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.core.database import get_db
+from app.schemas.estoque import MovimentacaoEstoque
 from app.services.estoquista import (
     consultar_estoque,
     registrar_entrada,
@@ -10,18 +12,15 @@ router = APIRouter()
 
 
 @router.get("/estoque")
-def estoque():
-
-    return consultar_estoque()
-
-
-@router.post("/entrada")
-def entrada(codigo: int, quantidade: int):
-
-    return registrar_entrada(codigo, quantidade)
+def get_estoque(db: Session = Depends(get_db)):
+    return consultar_estoque(db)
 
 
-@router.post("/saida")
-def saida(codigo: int, quantidade: int):
+@router.post("/estoque/entrada")
+def post_entrada(dados: MovimentacaoEstoque, db: Session = Depends(get_db)):
+    return registrar_entrada(db, dados.codigo, dados.nome, dados.quantidade)
 
-    return registrar_saida(codigo, quantidade)
+
+@router.post("/estoque/saida")
+def post_saida(dados: MovimentacaoEstoque, db: Session = Depends(get_db)):
+    return registrar_saida(db, dados.codigo, dados.nome, dados.quantidade)

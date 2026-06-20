@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 class ItemEstoque(Base):
@@ -8,3 +9,5 @@ class ItemEstoque(Base):
     estoque_id     = Column(Integer, ForeignKey("estoque.id"), nullable=False)
     produto_codigo = Column(Integer, ForeignKey("produto.codigo"), nullable=False)
     quantidade     = Column(Integer, nullable=False, default=0)
+
+    produto = relationship("Produto")

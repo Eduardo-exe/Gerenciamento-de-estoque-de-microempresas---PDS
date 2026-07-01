@@ -4,6 +4,8 @@ from app.core.database import Base, engine
 from app.routers.rotas_estoque import router as rotas_estoque
 from app.routers.rotas_gerente import router as rotas_gerente
 from app.routers.rotas_administrador import router as rotas_admin
+from app.routers.routers_auth import router as auth_router
+
 
 import app.models.usuario
 import app.models.fornecedor
@@ -14,6 +16,9 @@ import app.models.itemEstoque
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+
+app.include_router(auth_router)
 
 # Estoquista
 app.include_router(rotas_estoque, prefix="/estoquista", tags=["Estoquista"])

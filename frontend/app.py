@@ -18,7 +18,7 @@ def main(page: ft.Page):
             expand=True,
             alignment=ft.Alignment.CENTER,
             content=ft.Image(
-                src="G-Estoque.png",
+                src="assets/G-Estoque.png",
                 fit="contain",
             ),
         )

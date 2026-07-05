@@ -2,12 +2,23 @@ from sqlalchemy.orm import Session
 from app.models.produto import Produto
 from app.models.itemEstoque import ItemEstoque
 from app.models.fornecedor import Fornecedor
+from app.models.estoque import Estoque
 import re
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 import io
 
 # ── Produto ──────────────────────────────────────────────
+
+def _get_or_create_estoque(db: Session) -> int:
+    """Retorna o id do primeiro registro de Estoque, criando um se não existir."""
+    estoque = db.query(Estoque).first()
+    if not estoque:
+        estoque = Estoque()
+        db.add(estoque)
+        db.flush()
+    return estoque.id
+
 
 def cadastrar_produto(db: Session, codigo: int, nome: str, quantidade: int):
     produto_existente = db.query(Produto).filter(Produto.codigo == codigo).first()
@@ -18,7 +29,12 @@ def cadastrar_produto(db: Session, codigo: int, nome: str, quantidade: int):
     db.add(novo_produto)
     db.flush()
 
-    novo_item = ItemEstoque(produto_id=novo_produto.id, quantidade=quantidade)
+    estoque_id = _get_or_create_estoque(db)
+    novo_item = ItemEstoque(
+        produto_codigo=novo_produto.codigo,
+        estoque_id=estoque_id,
+        quantidade=quantidade,
+    )
     db.add(novo_item)
     db.commit()
 
@@ -57,7 +73,7 @@ def deletar_produto(db: Session, codigo: int):
     if not produto:
         return {"erro": "Código inexistente"}
 
-    item = db.query(ItemEstoque).filter(ItemEstoque.produto_id == produto.id).first()
+    item = db.query(ItemEstoque).filter(ItemEstoque.produto_codigo == produto.codigo).first()
     if item:
         db.delete(item)
 

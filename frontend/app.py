@@ -2,6 +2,7 @@ import flet as ft
 from api.client import api
 from state import set_state, get_state, clear_state
 from views.estoquista import estoquista_view
+from views.gerente import gerente_view
 
 # ── Palette ───────────────────────────────────────────────────────────────────
 BG     = "#1C1C1E"
@@ -171,10 +172,12 @@ def main(page: ft.Page):
                 return
             page.views.append(estoquista_view(page))
 
-        # elif page.route == "/gerente":
-        #     from views.gerente import gerente_view
-        #     page.views.append(gerente_view(page))
-        #
+        elif page.route == "/gerente":
+            if tipo != "gerente":
+                page.go("/login")
+                return
+            page.views.append(gerente_view(page))
+
         # elif page.route == "/admin":
         #     from views.admin import admin_view
         #     page.views.append(admin_view(page))

@@ -2,7 +2,6 @@ import flet as ft
 from api.client import api
 from state import set_state, get_state, clear_state
 from views.estoquista import estoquista_view
-from views.gerente import gerente_view
 
 # ── Palette ───────────────────────────────────────────────────────────────────
 BG     = "#1C1C1E"
@@ -71,8 +70,10 @@ def login_view(page: ft.Page) -> ft.View:
             tipo = res.get("tipo", "estoquista")
             nome = res.get("nome", "")
 
+        login_digitado = f_usuario.value or ""
+
         api.set_token(token)
-        set_state(token, tipo, nome)
+        set_state(token, tipo, nome, login_digitado)
 
         rotas = {
             "estoquista":    "/estoquista",
@@ -85,14 +86,11 @@ def login_view(page: ft.Page) -> ft.View:
     f_senha.on_submit   = do_login
 
     painel_logo = ft.Container(
-        content=ft.Column([
-            ft.Image(src="logo.png", width=110),
-            ft.Container(height=16),
-            ft.Text("G-Estoque", size=26, color="#1A1A2E", weight=ft.FontWeight.BOLD),
-            ft.Text("Gestão Eficiente de Estoque", size=13, color="#6B7280"),
-        ],
-        alignment=ft.MainAxisAlignment.CENTER,
-        horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        content=ft.Image(
+            src="G-Estoque.png",
+            width=1000,
+            fit="contain",
+        ),
         expand=True,
         bgcolor="#FFFFFF",
         alignment=ft.Alignment(0, 0),
@@ -173,14 +171,12 @@ def main(page: ft.Page):
             page.views.append(estoquista_view(page))
 
         elif page.route == "/gerente":
-            if tipo != "gerente":
-                page.go("/login")
-                return
-            page.views.append(gerente_view(page))
-
-        # elif page.route == "/admin":
-        #     from views.admin import admin_view
-        #     page.views.append(admin_view(page))
+           from views.gerente import gerente_view
+           page.views.append(gerente_view(page))
+        
+        elif page.route == "/admin":
+           from views.admin import admin_view
+           page.views.append(admin_view(page))
 
         else:
             page.go("/login")

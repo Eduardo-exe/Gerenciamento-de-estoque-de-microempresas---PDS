@@ -1,45 +1,76 @@
-produtos = [
-    {"codigo": 1, "nome": "Teclado", "quantidade": 20},
-    {"codigo": 2, "nome": "Mouse", "quantidade": 35},
-    {"codigo": 3, "nome": "Monitor", "quantidade": 10}
-]
+from sqlalchemy.orm import Session
+from app.models.produto import Produto
+from app.models.itemEstoque import ItemEstoque
 
 
-def consultar_estoque():
-    return produtos
+def consultar_estoque(db: Session):
+    itens = db.query(ItemEstoque).join(Produto).all()
+
+    resultado = []
+    for item in itens:
+        resultado.append({
+            "codigo": item.produto.codigo,
+            "nome": item.produto.nome,
+            "quantidade": item.quantidade
+        })
+
+    return resultado
 
 
-def registrar_entrada(codigo, quantidade):
+def registrar_entrada(db: Session, codigo: int, nome: str, quantidade: int):
+    item = (
+        db.query(ItemEstoque)
+        .join(Produto)
+        .filter(Produto.codigo == codigo)
+        .first()
+    )
 
-    for produto in produtos:
+    if not item:
+        return {"erro": "Produto não encontrado"}
 
-        if produto["codigo"] == codigo:
+    if item.produto.nome != nome:
+        return {"erro": "Nome do produto não corresponde ao código informado"}
 
-            produto["quantidade"] += quantidade
+    item.quantidade += quantidade
+    db.commit()
+    db.refresh(item)
 
-            return {
-                "mensagem": "Entrada registrada",
-                "produto": produto
-            }
+    return {
+        "mensagem": "Entrada registrada",
+        "produto": {
+            "codigo": item.produto.codigo,
+            "nome": item.produto.nome,
+            "quantidade": item.quantidade
+        }
+    }
 
-    return {"erro": "Produto não encontrado"}
 
+def registrar_saida(db: Session, codigo: int, nome: str, quantidade: int):
+    item = (
+        db.query(ItemEstoque)
+        .join(Produto)
+        .filter(Produto.codigo == codigo)
+        .first()
+    )
 
-def registrar_saida(codigo, quantidade):
+    if not item:
+        return {"erro": "Produto não encontrado"}
 
-    for produto in produtos:
+    if item.produto.nome != nome:
+        return {"erro": "Nome do produto não corresponde ao código informado"}
 
-        if produto["codigo"] == codigo:
+    if item.quantidade < quantidade:
+        return {"erro": "Estoque insuficiente"}
 
-            if produto["quantidade"] < quantidade:
+    item.quantidade -= quantidade
+    db.commit()
+    db.refresh(item)
 
-                return {"erro": "Estoque insuficiente"}
-
-            produto["quantidade"] -= quantidade
-
-            return {
-                "mensagem": "Saída registrada",
-                "produto": produto
-            }
-
-    return {"erro": "Produto não encontrado"}
+    return {
+        "mensagem": "Saída registrada",
+        "produto": {
+            "codigo": item.produto.codigo,
+            "nome": item.produto.nome,
+            "quantidade": item.quantidade
+        }
+    }

@@ -68,3 +68,30 @@ O diagrama de classes adota um padrão baseado em Serviços, separando as entida
 * Banco de Dados: PostgreSQL
 * Ferramenta de Modelagem: StarUML
 * Linguagem de Modelagem: UML 2.5 (Casos de Uso e Classes)
+
+---
+
+## 📚 Como Rodar a Documentação Localmente
+
+Este projeto utiliza o **MkDocs** com o tema **Material for MkDocs** para gerar uma documentação estática bonita e fácil de navegar. Siga os passos abaixo para visualizá-la no seu navegador:
+
+1. **Ative seu ambiente virtual (se aplicável):**
+   ```bash
+   # Windows
+   .venv\Scripts\activate
+   ```
+
+2. **Instale as dependências da documentação:**
+   Certifique-se de que o `mkdocs-material` está instalado no seu ambiente.
+   ```bash
+   pip install mkdocs-material
+   ```
+
+3. **Inicie o servidor local do MkDocs:**
+   Na raiz do projeto (onde está o arquivo `mkdocs.yml`), execute:
+   ```bash
+   mkdocs serve
+   ```
+
+4. **Acesse no navegador:**
+   O terminal exibirá um endereço local, geralmente `http://127.0.0.1:8000/`. Abra esse link no seu navegador para ver a documentação interativa com todos os diagramas e imagens.

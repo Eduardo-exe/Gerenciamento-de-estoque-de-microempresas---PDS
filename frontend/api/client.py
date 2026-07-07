@@ -131,13 +131,6 @@ class ApiClient:
             return {"erro": str(e)}
 
     # ── Produtos (Gerente) ────────────────────────────────────────────────────
-    def get_produtos(self) -> List:
-        """Compatibilidade: chama endpoint antigo /produtos se existir."""
-        try:
-            r = requests.get(f"{BASE_URL}/produtos", headers=self._headers, timeout=5)
-            return r.json() if r.ok else []
-        except Exception:
-            return []
 
     def get_produtos_gerente(self) -> List:
         try:
@@ -146,18 +139,6 @@ class ApiClient:
         except Exception:
             return []
 
-    def cadastrar_produto(self, codigo: int, nome: str) -> Dict:
-        """Compatibilidade: cadastro sem quantidade."""
-        try:
-            r = requests.post(
-                f"{BASE_URL}/produtos",
-                json={"codigo": codigo, "nome": nome},
-                headers=self._headers,
-                timeout=5,
-            )
-            return self._safe_json(r)
-        except Exception as e:
-            return {"erro": str(e)}
 
     def cadastrar_produto_gerente(self, codigo: int, nome: str, quantidade: int) -> Dict:
         try:
@@ -196,13 +177,6 @@ class ApiClient:
             return {"erro": str(e)}
 
     # ── Fornecedores (Gerente) ────────────────────────────────────────────────
-    def get_fornecedores(self) -> List:
-        """Compatibilidade: chama endpoint antigo /fornecedores se existir."""
-        try:
-            r = requests.get(f"{BASE_URL}/fornecedores", headers=self._headers, timeout=5)
-            return r.json() if r.ok else []
-        except Exception:
-            return []
 
     def get_fornecedores_gerente(self) -> List:
         try:
@@ -211,18 +185,6 @@ class ApiClient:
         except Exception:
             return []
 
-    def cadastrar_fornecedor(self, cnpj: str, nome: str, telefone: str) -> Dict:
-        """Compatibilidade: endpoint antigo."""
-        try:
-            r = requests.post(
-                f"{BASE_URL}/fornecedores",
-                json={"cnpj": cnpj, "nome": nome, "telefone": telefone},
-                headers=self._headers,
-                timeout=5,
-            )
-            return self._safe_json(r)
-        except Exception as e:
-            return {"erro": str(e)}
 
     def cadastrar_fornecedor_gerente(self, cnpj: str, nome: str, telefone: str) -> Dict:
         try:
@@ -263,7 +225,7 @@ class ApiClient:
     # ── Usuários ──────────────────────────────────────────────────────────
     def get_usuarios(self) -> List:
         try:
-            r = requests.get(f"{BASE_URL}/usuarios", headers=self._headers, timeout=5)
+            r = requests.get(f"{BASE_URL}/admin/usuarios", headers=self._headers, timeout=5)
             return r.json() if r.ok else []
         except Exception:
             return []
@@ -271,7 +233,7 @@ class ApiClient:
     def criar_usuario(self, nome: str, login: str, senha: str, tipo: str) -> Dict:
         try:
             r = requests.post(
-                f"{BASE_URL}/usuarios",
+                f"{BASE_URL}/admin/usuarios",
                 json={"nome": nome, "login": login, "senha": senha, "tipo": tipo},
                 headers=self._headers,
                 timeout=5,
@@ -280,20 +242,37 @@ class ApiClient:
         except Exception as e:
             return {"erro": str(e)}
 
-    # ── Relatório ─────────────────────────────────────────────────────────────
-    def gerar_relatorio(self) -> Dict:
+    def alterar_tipo_usuario(self, usuario_id: int, tipo: str) -> Dict:
         try:
-            r = requests.get(f"{BASE_URL}/relatorios", headers=self._headers, timeout=10)
-            return self._safe_json(r) if r.ok else {"erro": "Falha ao gerar relatório"}
+            r = requests.put(
+                f"{BASE_URL}/admin/usuarios/tipo",
+                json={"usuario_id": usuario_id, "tipo": tipo},
+                headers=self._headers,
+                timeout=5,
+            )
+            return self._safe_json(r)
         except Exception as e:
             return {"erro": str(e)}
 
-    def baixar_relatorio_pdf(self) -> str:
+    def deletar_usuario(self, usuario_id: int) -> Dict:
+        try:
+            r = requests.delete(
+                f"{BASE_URL}/admin/usuarios",
+                json={"usuario_id": usuario_id},
+                headers=self._headers,
+                timeout=5,
+            )
+            return self._safe_json(r)
+        except Exception as e:
+            return {"erro": str(e)}
+
+
+    def baixar_relatorio_pdf(self, prefixo: str = "gerente") -> str:
         """Baixa o PDF de relatório e salva na pasta Downloads do usuário.
         Retorna o caminho do arquivo salvo, ou string 'erro: ...' em caso de falha."""
         try:
             r = requests.get(
-                f"{BASE_URL}/gerente/relatorio/pdf",
+                f"{BASE_URL}/{prefixo}/relatorio/pdf",
                 headers=self._headers,
                 timeout=30,
                 stream=True,

@@ -1,12 +1,16 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
-from app.schemas.administrador import PermissaoSchema, AlterarNivelSchema
+from app.schemas.administrador import (
+    CriarUsuarioSchema,
+    AlterarTipoSchema,
+    DeletarUsuarioSchema,
+)
 from app.services.administrador import (
     listar_usuarios,
-    dar_permissao,
-    remover_permissao,
-    alterar_nivel
+    criar_usuario,
+    alterar_tipo,
+    deletar_usuario,
 )
 
 router = APIRouter()
@@ -17,16 +21,16 @@ def get_usuarios(db: Session = Depends(get_db)):
     return listar_usuarios(db)
 
 
-@router.post("/permissao/dar")
-def post_dar_permissao(dados: PermissaoSchema, db: Session = Depends(get_db)):
-    return dar_permissao(db, dados.usuario_id, dados.nivel)
+@router.post("/usuarios")
+def post_criar_usuario(dados: CriarUsuarioSchema, db: Session = Depends(get_db)):
+    return criar_usuario(db, dados.nome, dados.login, dados.senha, dados.tipo)
 
 
-@router.post("/permissao/remover")
-def post_remover_permissao(dados: PermissaoSchema, db: Session = Depends(get_db)):
-    return remover_permissao(db, dados.usuario_id)
+@router.put("/usuarios/tipo")
+def put_alterar_tipo(dados: AlterarTipoSchema, db: Session = Depends(get_db)):
+    return alterar_tipo(db, dados.usuario_id, dados.tipo)
 
 
-@router.put("/permissao/nivel")
-def put_alterar_nivel(dados: AlterarNivelSchema, db: Session = Depends(get_db)):
-    return alterar_nivel(db, dados.usuario_id, dados.nivel)
+@router.delete("/usuarios")
+def delete_deletar_usuario(dados: DeletarUsuarioSchema, db: Session = Depends(get_db)):
+    return deletar_usuario(db, dados.usuario_id)

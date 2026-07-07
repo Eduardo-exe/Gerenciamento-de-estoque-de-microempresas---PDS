@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from app.core.database import Base
 
 class Usuario(Base):
@@ -9,4 +9,4 @@ class Usuario(Base):
     login = Column(String(50), unique=True, nullable=False)
     senha = Column(String(255), nullable=False)
     tipo  = Column(String(20), nullable=False) # Estoquista, gerente ou administrador.
-    
+    ativo = Column(Boolean, default=True, nullable=False)

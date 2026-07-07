@@ -2,6 +2,8 @@ import flet as ft
 from api.client import api
 from state import set_state, get_state, clear_state
 from views.estoquista import estoquista_view
+from views.gerente import gerente_view
+from views.admin import admin_view
 
 # ── Palette ───────────────────────────────────────────────────────────────────
 BG     = "#1C1C1E"
@@ -161,22 +163,23 @@ def main(page: ft.Page):
         if page.route == "/login" or not page.route:
             page.views.append(login_view(page))
 
-        elif page.route == "/recuperar-senha":
-            page.views.append(login_view(page))   # substitua pela sua view
-
         elif page.route == "/estoquista":
-            if tipo != "estoquista":
+            if not tipo:
                 page.go("/login")
                 return
             page.views.append(estoquista_view(page))
 
         elif page.route == "/gerente":
-           from views.gerente import gerente_view
-           page.views.append(gerente_view(page))
-        
+            if tipo not in ["gerente", "administrador"]:
+                page.go("/login")
+                return
+            page.views.append(gerente_view(page))
+
         elif page.route == "/admin":
-           from views.admin import admin_view
-           page.views.append(admin_view(page))
+            if tipo != "administrador":
+                page.go("/login")
+                return
+            page.views.append(admin_view(page))
 
         else:
             page.go("/login")

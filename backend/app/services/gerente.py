@@ -155,17 +155,6 @@ def listar_fornecedores(db: Session):
 
 
 # ── Relatório ────────────────────────────────────────────
-def gerar_relatorio(db: Session):
-    produtos = listar_produtos(db)
-    fornecedores = listar_fornecedores(db)
-
-    return {
-        "total_produtos": len(produtos),
-        "total_fornecedores": len(fornecedores),
-        "produtos": produtos,
-        "fornecedores": fornecedores
-    }
-
 def gerar_relatorio_pdf(db: Session):
     produtos = listar_produtos(db)
     fornecedores = listar_fornecedores(db)

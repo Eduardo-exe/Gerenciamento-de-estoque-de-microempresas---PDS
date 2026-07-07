@@ -1,9 +1,17 @@
 from pydantic import BaseModel
 
-class PermissaoSchema(BaseModel):
-    usuario_id: int
-    nivel: str
 
-class AlterarNivelSchema(BaseModel):
+class CriarUsuarioSchema(BaseModel):
+    nome: str
+    login: str
+    senha: str
+    tipo: str
+
+
+class AlterarTipoSchema(BaseModel):
     usuario_id: int
-    nivel: str
+    tipo: str
+
+
+class DeletarUsuarioSchema(BaseModel):
+    usuario_id: int

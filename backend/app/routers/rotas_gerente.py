@@ -16,11 +16,10 @@ from app.services.gerente import (
     atualizar_fornecedor,
     deletar_fornecedor,
     listar_fornecedores,
-    gerar_relatorio
+    gerar_relatorio_pdf
 )
 
 from fastapi.responses import StreamingResponse
-from app.services.gerente import gerar_relatorio_pdf
 
 router = APIRouter()
 

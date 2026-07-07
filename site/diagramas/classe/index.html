@@ -1,0 +1,1075 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Sistema de Gerenciamento de Estoque para Microempresas">
+      
+      
+      
+      
+        <link rel="prev" href="../caso_de_uso/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Classes - G-Estoque</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#diagramas-arquitetura-de-classes-e-evolucao-uml" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="G-Estoque" class="md-header__button md-logo" aria-label="G-Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            G-Estoque
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Classes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="G-Estoque" class="md-nav__button md-logo" aria-label="G-Estoque" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    G-Estoque
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../instalacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como usar
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Como usar
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uso/estoquista/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estoquista
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uso/gerente/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gerente
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uso/administrador/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administrador
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Arquitetura
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/visao_geral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão Geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/banco_de_dados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Banco de Dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagramas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagramas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../caso_de_uso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Casos de Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#evolucao-do-modelo-teoria-vs-implementacao-pratica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 Evolução do Modelo: Teoria vs. Implementação Prática
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔬 Evolução do Modelo: Teoria vs. Implementação Prática">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-o-papel-do-acesso-do-usuario-no-diagrama-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. O Papel do Acesso do Usuário no Diagrama Original
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-a-tabela-associativa-itemestoque-estoque-vs-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A Tabela Associativa ItemEstoque (Estoque vs. Produto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagrama-de-classes-e-entidades-do-backend-implementacao-atual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ Diagrama de Classes e Entidades do Backend (Implementação Atual)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-de-componentes-do-frontend-flet-ui-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 Estrutura de Componentes do Frontend (Flet UI Classes)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#evolucao-do-modelo-teoria-vs-implementacao-pratica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 Evolução do Modelo: Teoria vs. Implementação Prática
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔬 Evolução do Modelo: Teoria vs. Implementação Prática">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-o-papel-do-acesso-do-usuario-no-diagrama-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. O Papel do Acesso do Usuário no Diagrama Original
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-a-tabela-associativa-itemestoque-estoque-vs-produto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A Tabela Associativa ItemEstoque (Estoque vs. Produto)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagrama-de-classes-e-entidades-do-backend-implementacao-atual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ Diagrama de Classes e Entidades do Backend (Implementação Atual)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrutura-de-componentes-do-frontend-flet-ui-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📐 Estrutura de Componentes do Frontend (Flet UI Classes)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="diagramas-arquitetura-de-classes-e-evolucao-uml">Diagramas: Arquitetura de Classes e Evolução UML</h1>
+<p>Este documento analisa a evolução do modelo de arquitetura de classes do <strong>G-Estoque</strong>, contrastando a concepção original do diagrama de classes com a implementação final no código em Python (SQLAlchemy / Pydantic / Flet).</p>
+<hr />
+<h2 id="evolucao-do-modelo-teoria-vs-implementacao-pratica">🔬 Evolução do Modelo: Teoria vs. Implementação Prática</h2>
+<p>No desenvolvimento de software, é comum e esperado que os diagramas conceituais passem por um processo de <strong>refinamento arquitetural</strong> durante a transição para a linguagem programática real. </p>
+<h3 id="1-o-papel-do-acesso-do-usuario-no-diagrama-original">1. O Papel do Acesso do Usuário no Diagrama Original</h3>
+<p>Em diagramas de classes UML iniciais, muitas vezes a classe <code>Usuario</code> é desenhada de forma isolada do modelo de mercadorias (sem linhas ligando diretamente a produtos), pois no domínio relacional do negócio, uma conta de usuário não é dona física de uma peça. 
+- <strong>No Código Real:</strong> No entanto, durante a execução, os serviços (<code>services/*.py</code>) atuam como orquestradores que recebem o usuário logado (via token JWT) e autorizam a mutação na tabela de <code>ItemEstoque</code>. Assim, a separação foi mantida no banco de dados (tabelas independentes para segurança e isolamento), mas unida logicamente pela camada de controle de acesso de roteadores REST.</p>
+<h3 id="2-a-tabela-associativa-itemestoque-estoque-vs-produto">2. A Tabela Associativa <code>ItemEstoque</code> (Estoque vs. Produto)</h3>
+<p>No modelo conceitual, um produto pode ter uma ligação com o estoque. Na modelagem relacional implementada via ORM SQLAlchemy em <code>models/estoque.py</code>, criamos a entidade associativa <code>ItemEstoque</code> intermediando <code>Estoque</code> e <code>Produto</code>.
+- <strong>Por que isso foi feito?</strong> Essa arquitetura em <strong>Terceira Forma Normal (3NF)</strong> permite que um produto exista no catálogo mestre com código e nome independentemente de ter saldo em prateleira, e permite que o galpão gerencie quantidades dinâmicas sem duplicar a descrição do item a cada movimentação.</p>
+<hr />
+<h2 id="diagrama-de-classes-e-entidades-do-backend-implementacao-atual">🏛️ Diagrama de Classes e Entidades do Backend (Implementação Atual)</h2>
+<p>O diagrama Mermaid abaixo representa a estrutura de classes e modelos de dados exata implementada em nosso código de produção:</p>
+<pre class="mermaid"><code>classDiagram
+    %% Modelos de Banco de Dados (ORM SQLAlchemy)
+    class Usuario {
+        +int id
+        +string nome
+        +string login
+        +string senha
+        +string tipo
+        +boolean ativo
+        +verificar_senha(senha_plana) bool
+    }
+
+    class Produto {
+        +int codigo
+        +string nome
+        +listar_movimentacoes()
+    }
+
+    class Estoque {
+        +int id
+        +adicionar_item(produto, qtd)
+        +remover_item(produto, qtd)
+    }
+
+    class ItemEstoque {
+        +int id
+        +int produto_codigo
+        +int estoque_id
+        +int quantidade
+    }
+
+    class Fornecedor {
+        +string cnpj
+        +string nome
+        +string telefone
+        +validar_regex_cnpj() bool
+    }
+
+    %% Schemas Pydantic (Validação de Dados API)
+    class LoginRequest {
+        +string login
+        +string senha
+    }
+
+    class LoginResponse {
+        +string access_token
+        +string tipo
+        +string nome
+    }
+
+    class MovimentacaoEstoqueSchema {
+        +int codigo
+        +string nome
+        +int quantidade
+    }
+
+    class ProdutoSchema {
+        +int codigo
+        +string nome
+        +int quantidade
+    }
+
+    class FornecedorSchema {
+        +string cnpj
+        +string nome
+        +string telefone
+    }
+
+    %% Relacionamentos do Modelo ORM
+    Estoque "1" -- "0..*" ItemEstoque : contém
+    Produto "1" -- "0..*" ItemEstoque : alocado em
+
+    %% Relacionamento com Schemas
+    LoginRequest ..&gt; Usuario : valida credenciais
+    LoginResponse ..&gt; Usuario : encapsula dados de sessão
+    MovimentacaoEstoqueSchema ..&gt; ItemEstoque : mutação de saldo
+    ProdutoSchema ..&gt; Produto : serialização JSON
+    FornecedorSchema ..&gt; Fornecedor : serialização JSON</code></pre>
+<hr />
+<h2 id="estrutura-de-componentes-do-frontend-flet-ui-classes">📐 Estrutura de Componentes do Frontend (Flet UI Classes)</h2>
+<p>No lado da apresentação desktop em <code>frontend/</code>, as responsabilidades orientadas a objeto foram organizadas para separar controle de sessão de renderização gráfica:</p>
+<pre class="mermaid"><code>classDiagram
+    class ApiClient {
+        -string _token
+        -dict _headers()
+        +set_token(token)
+        +clear()
+        +login(login, senha) Dict
+        +get_estoque() List
+        +registrar_entrada(cod, nome, qtd) Dict
+        +registrar_saida(cod, nome, qtd) Dict
+        +cadastrar_produto_gerente(cod, nome, qtd) Dict
+        +cadastrar_fornecedor_gerente(cnpj, nome, tel) Dict
+        +baixar_relatorio_pdf(prefixo) str
+        +get_usuarios() List
+        +alterar_tipo_usuario(id, tipo) Dict
+        +deletar_usuario(id) Dict
+    }
+
+    class StateController {
+        -dict _state
+        +get_state() dict
+        +set_state(key, val)
+        +clear_state()
+    }
+
+    class AppRouter {
+        +main(page: Page)
+        +route_change(e)
+    }
+
+    class Views {
+        &lt;&lt;enumeration&gt;&gt;
+        +login_view(page) View
+        +estoquista_view(page) View
+        +gerente_view(page) View
+        +admin_view(page) View
+    }
+
+    AppRouter --&gt; Views : empilha e renderiza (SPA)
+    AppRouter --&gt; StateController : valida permissões de acesso
+    Views --&gt; ApiClient : envia requisições HTTP REST
+    Views --&gt; StateController : lê/atualiza token e cargo</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,34 @@
+site_name: G-Estoque
+site_description: Sistema de Gerenciamento de Estoque para Microempresas
+dev_addr: '127.0.0.1:8008'
+theme:
+  name: material
+  language: pt
+  palette:
+    scheme: slate
+    primary: teal
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+nav:
+  - Início: index.md
+  - Instalação: instalacao.md
+  - Como usar:
+      - Estoquista: uso/estoquista.md
+      - Gerente: uso/gerente.md
+      - Administrador: uso/administrador.md
+  - Arquitetura:
+      - Visão Geral: arquitetura/visao_geral.md
+      - Backend: arquitetura/backend.md
+      - Frontend: arquitetura/frontend.md
+      - Banco de Dados: arquitetura/banco_de_dados.md
+  - Diagramas:
+      - Casos de Uso: diagramas/caso_de_uso.md
+      - Classes: diagramas/classe.md
+      - Atividades: diagramas/atividade.md
+      - Sequência: diagramas/sequencia.md

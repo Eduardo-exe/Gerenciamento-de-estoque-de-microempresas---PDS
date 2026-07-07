@@ -1,1 +1,7 @@
-venv/
+# Ambientes virtuais
+.venv/
+backend/.venv/
+
+# Cache do Python
+__pycache__/
+*.py[cod]

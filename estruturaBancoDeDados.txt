@@ -1,0 +1,24 @@
+Usuário
+id (PK)
+nome
+login
+senha
+tipo (estoquista/gerente/administrador)
+
+Fornecedor
+cnpj (PK)
+nome
+telefone
+
+Produto
+código (PK)
+telefone
+
+Estoque
+id (PK)
+
+Item_estoque
+id (PK)
+estoque_id (FK -> estoque.id)
+produto código (FK -> produto.codigo)
+quantidade
